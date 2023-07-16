@@ -30,3 +30,8 @@ builddir
 
 # python unit tests
 __pycache__
+
+bazel-bin
+bazel-bzip2
+bazel-out
+bazel-testlogs
