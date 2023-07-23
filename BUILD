@@ -6,6 +6,12 @@ load("@bazel_skylib//lib:selects.bzl", "selects")
 licenses(["notice"])  # BSD derivative
 
 alias(
+    name = "bz2lib",
+    actual = ":libbzip2",
+    visibility = ["//visibility:public"],
+)
+
+alias(
     name = "libbzip2",
     actual = selects.with_or({
         ("@platforms//os:osx", "@platforms//os:ios", "@platforms//os:watchos", "@platforms//os:tvos"): ":bz2lib_system",
