@@ -20,6 +20,45 @@ alias(
     visibility = ["//visibility:public"],
 )
 
+COPTS = [
+    "-O3",
+    "-g",
+    "-fPIC",
+    "-Wall",
+    "-Wextra",
+    "-Wmissing-prototypes",
+    "-Wstrict-prototypes",
+    "-Wmissing-declarations",
+    "-Wpointer-arith",
+    "-Wdeclaration-after-statement",
+    "-Wformat-security",
+    "-Wwrite-strings",
+    "-Wshadow",
+    "-Winline",
+    "-Wnested-externs",
+    "-Wfloat-equal",
+    "-Wundef",
+    "-Wendif-labels",
+    "-Wempty-body",
+    "-Wcast-align",
+    "-Wclobbered",
+    "-Wvla",
+    "-Wpragmas",
+    "-Wunreachable-code",
+    "-Waddress",
+    "-Wattributes",
+    "-Wdiv-by-zero",
+    "-Wconversion",
+    "-Wformat-nonliteral",
+    "-Wmissing-field-initializers",
+    "-Wmissing-noreturn",
+    "-Wsign-conversion",
+    "-Wunused-macros",
+    "-Wunused-parameter",
+    "-Wredundant-decls",
+    "-Wno-format-nonliteral",
+]
+
 cc_library(
     name = "bz2lib_source",
     srcs = [
@@ -36,9 +75,11 @@ cc_library(
     hdrs = [
         "bzlib.h",
     ],
-    copts = [
-        "-O3",
-        "-g",
+    copts = COPTS,
+    local_defines = [
+        "bz2_EXPORTS",
+        "BZ_DEBUG=0",
+        "BZ_UNIX=1",
     ],
 )
 
@@ -47,12 +88,23 @@ cc_binary(
     srcs = [
         "bzip2.c",
     ],
-    copts = [
-        "-O3",
-        "-g",
-    ],
+    copts = COPTS,
     local_defines = [
-        "BZ_UNIX",
+        "BZ_UNIX=1",
+    ],
+    deps = [
+        "libbzip2",
+    ],
+)
+
+cc_binary(
+    name = "bzip2recover",
+    srcs = [
+        "bzip2recover.c",
+    ],
+    copts = COPTS,
+    local_defines = [
+        "BZ_UNIX=1",
     ],
     deps = [
         "libbzip2",
