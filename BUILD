@@ -47,6 +47,10 @@ cc_binary(
     srcs = [
         "bzip2.c",
     ],
+    copts = [
+        "-O3",
+        "-g",
+    ],
     local_defines = [
         "BZ_UNIX",
     ],
