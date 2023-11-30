@@ -1,9 +1,7 @@
-# Description:
-#   bzip2 is a high-quality data compressor.
-
+load("@rules_cc//cc:defs.bzl", "cc_library")
 load("@bazel_skylib//lib:selects.bzl", "selects")
 
-licenses(["notice"])  # BSD derivative
+package(default_visibility = ["//visibility:public"])
 
 alias(
     name = "bz2lib",
@@ -21,6 +19,7 @@ alias(
 )
 
 COPTS = [
+    "-march=native",
     "-O3",
     "-g",
     "-fPIC",
